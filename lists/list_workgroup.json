@@ -1,0 +1,42 @@
+{
+    "actions": [],
+    "binder": {
+        "className": "org.joget.plugin.enterprise.AdvancedFormRowDataListBinder",
+        "properties": {"formDefId": "workgroup"}
+    },
+    "buttonPosition": "bottomLeft",
+    "checkboxPosition": "left",
+    "columns": [
+        {
+            "id": "column_0",
+            "label": "Code Group",
+            "name": "codegroup"
+        },
+        {
+            "id": "column_1",
+            "label": "Code Zone",
+            "name": "codezone"
+        },
+        {
+            "id": "column_3",
+            "label": "Name Group",
+            "name": "name_group"
+        },
+        {
+            "id": "column_4",
+            "label": "Symtoms",
+            "name": "symtoms"
+        }
+    ],
+    "considerFilterWhenGetTotal": "",
+    "filters": [],
+    "id": "list_workgroup",
+    "name": "List - Workgroup",
+    "order": "",
+    "orderBy": "",
+    "pageSize": 0,
+    "pageSizeSelectorOptions": "10,20,30,40,50,100",
+    "rowActions": [],
+    "showPageSizeSelector": "true",
+    "useSession": "false"
+}

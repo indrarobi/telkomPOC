@@ -1,0 +1,43 @@
+{
+    "elements": [
+        {
+            "className": "org.joget.api.lib.AppFormAPI",
+            "properties": {
+                "ENABLED_PATHS": "post:/",
+                "formDefId": "registerIncident",
+                "id": "1F2A33CC-1AEA-4EC4-7A6C-015376B68272",
+                "ignorePermission": "",
+                "label": ""
+            }
+        },
+        {
+            "className": "org.joget.api.lib.AppFormAPI",
+            "properties": {
+                "ENABLED_PATHS": "post:/;get:/{recordId};put:/",
+                "formDefId": "userRegistration",
+                "id": "52C0FD8E-EC88-47F6-CC47-7F1157ECEC84",
+                "ignorePermission": "",
+                "label": ""
+            }
+        },
+        {
+            "className": "org.joget.api.lib.AssignmentAPI",
+            "properties": {
+                "ENABLED_PATHS": "post:/completeByUser/{username}/{activityId};post:/complete/{activityId};get:/countByUser/{username};get:/count;get:/detailByUser/{username}/{activityId};get:/detail/{activityId};get:/listByUser/{username};get:/list;post:/reevaluateByUsername/{username};post:/reevaluate",
+                "id": "96E8D1F5-6DF3-44BA-947B-04BC383BA945"
+            }
+        },
+        {
+            "className": "org.joget.api.lib.DirectoryUserAPI",
+            "properties": {
+                "ENABLED_PATHS": "post:/;delete:/{username};get:/findHod/{username};get:/findSubordinate/{username};get:/find;get:/findHodByDepartment/{departmentId};get:/employment/{username};get:/roles/{username};get:/{username};put:/",
+                "id": "7B6D7352-6E7A-400F-70F0-6B122ACBF748"
+            }
+        }
+    ],
+    "properties": {
+        "description": "",
+        "id": "API-f41d1f9f-d7fd-40da-a7a4-bdca08417e86",
+        "name": "Ticket Api System"
+    }
+}

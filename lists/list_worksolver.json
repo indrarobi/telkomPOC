@@ -1,0 +1,42 @@
+{
+    "actions": [],
+    "binder": {
+        "className": "org.joget.plugin.enterprise.AdvancedFormRowDataListBinder",
+        "properties": {"formDefId": "worksolver"}
+    },
+    "buttonPosition": "bottomLeft",
+    "checkboxPosition": "left",
+    "columns": [
+        {
+            "id": "column_0",
+            "label": "Code Customer Segment",
+            "name": "code_customer_segment"
+        },
+        {
+            "id": "column_1",
+            "label": "Code Solver",
+            "name": "code_solver"
+        },
+        {
+            "id": "column_2",
+            "label": "Code Zone",
+            "name": "code_zone"
+        },
+        {
+            "id": "column_4",
+            "label": "Name Group",
+            "name": "name_group"
+        }
+    ],
+    "considerFilterWhenGetTotal": "",
+    "filters": [],
+    "id": "list_worksolver",
+    "name": "List - Worksolver",
+    "order": "",
+    "orderBy": "",
+    "pageSize": 0,
+    "pageSizeSelectorOptions": "10,20,30,40,50,100",
+    "rowActions": [],
+    "showPageSizeSelector": "true",
+    "useSession": "false"
+}
