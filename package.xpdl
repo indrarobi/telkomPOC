@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Package xmlns="http://www.wfmc.org/2002/XPDL1.0" xmlns:xpdl="http://www.wfmc.org/2002/XPDL1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="telkomTicketSystem" Name="Telkom Ticket System" xsi:schemaLocation="http://www.wfmc.org/2002/XPDL1.0 http://wfmc.org/standards/docs/TC-1025_schema_10_xpdl.xsd">
+    <PackageHeader>
+        <XPDLVersion>1.0</XPDLVersion>
+        <Vendor/>
+        <Created/>
+    </PackageHeader>
+    <Script Type="text/javascript"/>
+    <Participants>
+        <Participant Id="requestor" Name="Requestor">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="admin" Name="Admin">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="petugas" Name="Petugas">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="newUser" Name="New User">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+    </Participants>
+    <Applications>
+        <Application Id="default_application"/>
+    </Applications>
+    <WorkflowProcesses>
+        <WorkflowProcess Id="ticketProcess" Name="Ticket Process">
+            <ProcessHeader DurationUnit="h">
+                <Limit>1</Limit>
+            </ProcessHeader>
+            <DataFields>
+                <DataField Id="status" IsArray="FALSE">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+            </DataFields>
+            <Activities>
+                <Activity Id="sendEmailRequestor" Name="send Email Requestor">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>requestor</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="requestor"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="200,29"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="checkMasalah" Name="Check Masalah">
+                    <Limit>1</Limit>
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performer>petugas</Performer>
+                    <Deadline Execution="ASYNCHR">
+                        <DeadlineCondition>var m=new java.util.Date(); m.setTime(ACTIVITY_ACTIVATED_TIME.getTime()+(5*60000)); m;</DeadlineCondition>
+                        <ExceptionName>NOTIFY</ExceptionName>
+                    </Deadline>
+                    <Deadline Execution="SYNCHR">
+                        <DeadlineCondition>var m=new java.util.Date(); m.setTime(ACTIVITY_ACTIVATED_TIME.getTime()+(30*60000)); m;</DeadlineCondition>
+                        <ExceptionName>ESCALATE</ExceptionName>
+                    </Deadline>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="XOR"/>
+                            <Split Type="AND">
+                                <TransitionRefs>
+                                    <TransitionRef Id="transition10"/>
+                                    <TransitionRef Id="transition11"/>
+                                    <TransitionRef Id="transition12"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="petugas"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="84,9"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="route1">
+                    <Route/>
+                    <Performer>admin</Performer>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="XOR"/>
+                            <Split Type="XOR">
+                                <TransitionRefs>
+                                    <TransitionRef Id="transition2"/>
+                                    <TransitionRef Id="transition3"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="admin"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="898,97"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="sendEmailDone" Name="Send Email Done">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>requestor</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="requestor"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="797,26"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="notifEmailKetersediaan" Name="Notif Email Ketersediaan">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>admin</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="admin"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="1044,124"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="checkMasalahKetersediaan" Name="Check Masalah Ketersediaan">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performer>petugas</Performer>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="XOR"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="petugas"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="585,30"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="requestServices" Name="Request Services">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performer>admin</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="admin"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="759,15"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="confirmationRequestor" Name="Confirmation Requestor">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performer>requestor</Performer>
+                    <Deadline Execution="ASYNCHR">
+                        <DeadlineCondition>var D=new java.util.Date(); D.setTime(ACTIVITY_ACTIVATED_TIME.getTime()+(3*86400000)); D;</DeadlineCondition>
+                        <ExceptionName>NOTIFY</ExceptionName>
+                    </Deadline>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="requestor"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="589,26"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="penugasan" Name="Penugasan">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performer>admin</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="admin"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="320,71"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="sendEmailNotify" Name="Send Email Notify">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>petugas</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="petugas"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="348,100"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="closeIssueBySystem" Name="Automatic close Issue">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>requestor</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="requestor"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="589,133"/>
+                    </ExtendedAttributes>
+                </Activity>
+                <Activity Id="sendEmailNotifCloseIssue" Name="Send Email Close Issue">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>requestor</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="requestor"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="406,132"/>
+                    </ExtendedAttributes>
+                </Activity>
+            </Activities>
+            <Transitions>
+                <Transition From="sendEmailRequestor" Id="transition0" To="checkMasalah">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="route1" Id="transition2" To="requestServices">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="route1" Id="transition3" To="sendEmailDone">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="sendEmailDone" Id="transition4" To="confirmationRequestor">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="requestServices" Id="transition6" To="notifEmailKetersediaan">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="notifEmailKetersediaan" Id="transition7" To="checkMasalahKetersediaan">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="checkMasalahKetersediaan" Id="transition9" To="route1">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="checkMasalah" Id="transition10" To="route1">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="checkMasalah" Id="transition11" To="penugasan">
+                    <Condition Type="EXCEPTION">ESCALATE</Condition>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="checkMasalah" Id="transition12" To="sendEmailNotify">
+                    <Condition Type="EXCEPTION">NOTIFY</Condition>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="confirmationRequestor" Id="transition14" To="closeIssueBySystem">
+                    <Condition Type="EXCEPTION">NOTIFY</Condition>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="closeIssueBySystem" Id="transition15" To="sendEmailNotifCloseIssue">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                    </ExtendedAttributes>
+                </Transition>
+                <Transition From="penugasan" Id="transition13" To="checkMasalahKetersediaan">
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_TRANSITION_STYLE" Value="NO_ROUTING_ORTHOGONAL"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_BREAK_POINTS" Value="orthogonal"/>
+                    </ExtendedAttributes>
+                </Transition>
+            </Transitions>
+            <ExtendedAttributes>
+                <ExtendedAttribute Name="JaWE_GRAPH_WORKFLOW_PARTICIPANT_ORDER" Value="requestor;admin;petugas"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_START_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=requestor,CONNECTING_ACTIVITY_ID=sendEmailRequestor,X_OFFSET=70,Y_OFFSET=45,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=START_DEFAULT"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_END_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=requestor,CONNECTING_ACTIVITY_ID=confirmationRequestor,X_OFFSET=493,Y_OFFSET=39,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=END_DEFAULT"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_END_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=petugas,CONNECTING_ACTIVITY_ID=sendEmailNotify,X_OFFSET=519,Y_OFFSET=112,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=END_DEFAULT"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_END_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=requestor,CONNECTING_ACTIVITY_ID=sendEmailNotifCloseIssue,X_OFFSET=306,Y_OFFSET=143,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=END_DEFAULT"/>
+            </ExtendedAttributes>
+        </WorkflowProcess>
+        <WorkflowProcess Id="createNewUser" Name="Create New User">
+            <ProcessHeader DurationUnit="h"/>
+            <DataFields>
+                <DataField Id="username" IsArray="FALSE">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="firstname" IsArray="FALSE">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="email" IsArray="FALSE">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+            </DataFields>
+            <Activities>
+                <Activity Id="sendEmailNotify" Name="Send Email Notify">
+                    <Implementation>
+                        <Tool Id="default_application"/>
+                    </Implementation>
+                    <Performer>newUser</Performer>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="JaWE_GRAPH_PARTICIPANT_ID" Value="newUser"/>
+                        <ExtendedAttribute Name="JaWE_GRAPH_OFFSET" Value="191,39"/>
+                    </ExtendedAttributes>
+                </Activity>
+            </Activities>
+            <ExtendedAttributes>
+                <ExtendedAttribute Name="JaWE_GRAPH_WORKFLOW_PARTICIPANT_ORDER" Value="newUser"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_START_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=newUser,CONNECTING_ACTIVITY_ID=sendEmailNotify,X_OFFSET=75,Y_OFFSET=46,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=START_DEFAULT"/>
+                <ExtendedAttribute Name="JaWE_GRAPH_END_OF_WORKFLOW" Value="JaWE_GRAPH_PARTICIPANT_ID=newUser,CONNECTING_ACTIVITY_ID=sendEmailNotify,X_OFFSET=367,Y_OFFSET=29,JaWE_GRAPH_TRANSITION_STYLE=NO_ROUTING_ORTHOGONAL,TYPE=END_DEFAULT"/>
+            </ExtendedAttributes>
+        </WorkflowProcess>
+    </WorkflowProcesses>
+    <ExtendedAttributes>
+        <ExtendedAttribute Name="EDITING_TOOL" Value="Web Workflow Designer"/>
+        <ExtendedAttribute Name="EDITING_TOOL_VERSION" Value="5.0-pre-alpha"/>
+    </ExtendedAttributes>
+</Package>

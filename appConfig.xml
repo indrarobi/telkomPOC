@@ -1,0 +1,21 @@
+<appDefinition>
+   <appId>telkomTicketSystem</appId>
+   <id>telkomTicketSystem</id>
+   <version></version>
+   <name>Telkom Ticket System</name>
+   <packageDefinitionList/>
+   <formDefinitionList/>
+   <userviewDefinitionList/>
+   <datalistDefinitionList/>
+   <builderDefinitionList/>
+   <pluginDefaultPropertiesList/>
+   <environmentVariableList>
+      <environmentVariable>
+         <id>emailSubjectCreateUserRegister</id>
+         <value>Notification User Register</value>
+      </environmentVariable>
+   </environmentVariableList>
+   <messageList/>
+   <resourceList/>
+   <license>MeSwightzeqxONk1Fou90Pr9JttaZv9ZzRvfktgKvG5Tb3RYrGCu4jJvh4iTSV1uNUb7izlSyoI=</license>
+</appDefinition>
