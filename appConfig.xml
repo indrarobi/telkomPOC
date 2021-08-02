@@ -1,5 +1,4 @@
 <appDefinition>
-   <appId>telkomTicketSystem</appId>
    <id>telkomTicketSystem</id>
    <version></version>
    <name>Telkom Ticket System</name>
