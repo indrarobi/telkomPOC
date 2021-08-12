@@ -39,6 +39,16 @@
             "className": "org.joget.apps.userview.model.UserviewCategory",
             "menus": [
                 {
+                    "className": "org.joget.plugin.enterprise.JasperReportsMenu",
+                    "properties": {
+                        "id": "B9BED12F29EA4A70AA360F823877246F",
+                        "label": "JasperReports",
+                        "output": "html",
+                        "userviewCacheDuration": "20",
+                        "userviewCacheScope": ""
+                    }
+                },
+                {
                     "className": "org.joget.plugin.enterprise.CrudMenu",
                     "properties": {
                         "add-afterSaved": "list",
